@@ -19,6 +19,7 @@ java -jar mysqldocfx-1.0-SNAPSHOT-jar-with-dependencies.jar
 ```
 
 ##### 界面预览
+![image](https://github.com/Mars-Shen/MySqlDocFx/blob/master/images/IMG20200703_211733.png)
 
 
 生成数据库文档
