@@ -1,0 +1,2 @@
+# MySqlDocFx
+MySqlDocFx是一个拥有图形化界面的可以将Mysql数据库的表结构转换成Markdown或者Html文件文档的软件
