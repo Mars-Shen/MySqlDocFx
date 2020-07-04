@@ -8,6 +8,7 @@ import com.vladsch.flexmark.util.ast.Node;
 import com.vladsch.flexmark.util.data.MutableDataSet;
 import com.vladsch.flexmark.util.misc.Extension;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -21,13 +22,16 @@ public class FileSave {
      * @param text
      * @throws IOException
      */
-    public static void  saveMarkdown(String db,String text) throws IOException{
-
-        mkdirIfNotExist("./md");
-        FileWriter mdFile = new FileWriter("./md/" + db+".md");
+    public static void  saveMarkdown(String path, String db,String text) throws IOException{
+        if(StringUtils.isBlank(path)){
+            path = "./";
+        }
+        path = path + System.getProperty("file.separator") + "MySqlDocFx";
+        mkdirIfNotExist(path);
+        FileWriter mdFile = new FileWriter(path + System.getProperty("file.separator") + db+".md");
         mdFile.write(text);
         mdFile.close();
-        System.out.println("markdonw文档生成成功：md/"+db+".md");
+        System.out.println("markdonw文档生成成功：" + path  + System.getProperty("file.separator") + db+".md");
     }
     /**
      * 判断目录是否存在，不存在则创建
@@ -45,7 +49,11 @@ public class FileSave {
      * @param db
      * @param text
      */
-    public  static  void  saveHtml(String db,String text) throws IOException {
+    public  static  void  saveHtml(String path, String db,String text) throws IOException {
+        if(StringUtils.isBlank(path)){
+            path = "./";
+        }
+        path = path + System.getProperty("file.separator") + "MySqlDocFx";
         MutableDataSet options = new MutableDataSet();
         options.setFrom(ParserEmulationProfile.MARKDOWN);
         // uncomment to set optional extensions
@@ -66,12 +74,10 @@ public class FileSave {
         }
         css  = "<style type=\"text/css\">\n" + css + "\n</style>\n";
         html = css + html;
-
-        mkdirIfNotExist("./html");
-
-        FileWriter mdFile = new FileWriter("./html/" + db+".html");
+        mkdirIfNotExist(path);
+        FileWriter mdFile = new FileWriter(path + System.getProperty("file.separator") + db+".html");
         mdFile.write(html);
         mdFile.close();
-        System.out.println("html文档生成成功：html/"+db+".html");
+        System.out.println("html文档生成成功：" + path + System.getProperty("file.separator") + db +".html");
     }
 }

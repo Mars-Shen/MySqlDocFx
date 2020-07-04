@@ -9,7 +9,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.apache.commons.io.FileUtils;
@@ -35,6 +37,8 @@ public class Controller {
     private JFXDialog dialog;
     @FXML
     private StackPane root;
+    @FXML
+    private Label exportFilePath;
 
     public static final String CONTENT_PANE = "ContentPane";
 
@@ -71,9 +75,9 @@ public class Controller {
             //解析markdown成markdown
             String text= markDownBuild.buildMarkdown(tablelistsInfo);
             //保存markdown 文件
-            FileSave.saveMarkdown(dbText,text);
+            FileSave.saveMarkdown(exportFilePath.getText(), dbText,text);
             //保存html 文件
-            FileSave.saveHtml(dbText,text);
+            FileSave.saveHtml(exportFilePath.getText(), dbText,text);
             successDialog("生成成功");
         } catch (SQLException | IOException throwables) {
             throwables.printStackTrace();
@@ -100,6 +104,7 @@ public class Controller {
             prop.setProperty("user", userText);
             prop.setProperty("password", passwordText);
             prop.setProperty("ssl", String.valueOf(selected));
+            prop.setProperty("exportFilePath", exportFilePath.getText());
             prop.store(out,"update");
         } catch (IOException e) {
             e.printStackTrace();
@@ -140,6 +145,8 @@ public class Controller {
                 String userConfText = prop.getProperty("user");
                 String passwordConfText = prop.getProperty("password");
                 String sslConfText = prop.getProperty("ssl");
+                String exportFilePathConfText = prop.getProperty("exportFilePath");
+                this.exportFilePath.setText(exportFilePathConfText);
                 host.setText(hostConfText);
                 db.setText(dbConfText);
                 user.setText(userConfText);
@@ -161,5 +168,14 @@ public class Controller {
         FileSave.mkdirIfNotExist(filePath);
         String fileName = "config.properties";
         return FileUtils.getFile(filePath + System.getProperty("file.separator") + fileName);
+    }
+
+    public void selectOutPath(MouseEvent mouseEvent) {
+        DirectoryChooser directoryChooser = new DirectoryChooser ();
+        directoryChooser.setTitle("选择输出目录");//选择对话框的标题
+        File selectDirectory = directoryChooser.showDialog(host.getScene().getWindow());
+        if(selectDirectory != null){
+            exportFilePath.setText(selectDirectory.getPath());
+        }
     }
 }
