@@ -1,7 +1,7 @@
 # MySqlDocFx
-数据库文档生成图形化工具
+一个数据库表结构自动生成Markdown或者Html文档的图形化工具
 
-Auto create mysql doc to markdown or html
+A tool for auto create mysql doc to markdown or html with UI
 
 ##### 工具使用：
 以下两种方式都可以使用本工具
@@ -17,12 +17,13 @@ java -jar mysqldocfx-1.0-SNAPSHOT-jar-with-dependencies.jar
 ```
  mvn package
 ```
+填写配置后点击生成, 即可自动生成数据库文档
 
 ##### 界面预览
 ![image](https://github.com/Mars-Shen/MySqlDocFx/blob/master/images/IMG20200703_211733.png)
 
 
-生成数据库文档
+
 
 ##### 计划
 - [ ] 生成MD模板可配置
