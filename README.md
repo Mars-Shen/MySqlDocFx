@@ -1,7 +1,7 @@
 # MySqlDocFx
 一个数据库表结构自动生成Markdown或者Html文档的图形化工具
 
-A tool for auto create mysql doc to markdown or html with UI
+A graphical tool that automatically generates Markdown or Html documents from the Mysql table structure
 
 ##### 工具使用：
 以下两种方式都可以使用本工具
