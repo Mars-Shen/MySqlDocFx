@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -169,6 +170,8 @@ public class Controller {
         image.setFitHeight(28);
         image.setFitHeight(28);
         exportFilePathLabel.setGraphic(image);
+        Tooltip tooltip = new Tooltip("选择保存地址");
+        exportFilePathLabel.setTooltip(tooltip);
     }
 
     private File getConfigFile() {
