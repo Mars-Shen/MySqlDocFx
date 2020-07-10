@@ -1,6 +1,7 @@
 package com.mars.mysqldocfx;
 
 import com.jfoenix.controls.*;
+import com.mars.mysqldocfx.common.CommonConstant;
 import com.mars.mysqldocfx.service.DatabaseInfo;
 import com.mars.mysqldocfx.service.FileSave;
 import com.mars.mysqldocfx.service.MarkDownBuild;
@@ -44,8 +45,6 @@ public class Controller {
     private Label exportFilePath;
     @FXML
     private Label exportFilePathLabel;
-
-    public static final String CONTENT_PANE = "ContentPane";
 
     @FXML
     public void generate(ActionEvent actionEvent) {
@@ -104,12 +103,12 @@ public class Controller {
             //调用 Hashtable 的方法 put。使用 getProperty 方法提供并行性。
             //强制要求为属性的键和值使用字符串。返回值是 Hashtable 调用 put 的结果。
             OutputStream out = new FileOutputStream(file.getPath());
-            prop.setProperty("host", hostText);
-            prop.setProperty("db", dbText);
-            prop.setProperty("user", userText);
-            prop.setProperty("password", passwordText);
-            prop.setProperty("ssl", String.valueOf(selected));
-            prop.setProperty("exportFilePath", exportFilePath.getText());
+            prop.setProperty(CommonConstant.HOST, hostText);
+            prop.setProperty(CommonConstant.DB, dbText);
+            prop.setProperty(CommonConstant.USER, userText);
+            prop.setProperty(CommonConstant.PASSWORD, passwordText);
+            prop.setProperty(CommonConstant.SSL, String.valueOf(selected));
+            prop.setProperty(CommonConstant.EXPORT_FILE_PATH, exportFilePath.getText());
             prop.store(out,"update");
         } catch (IOException e) {
             e.printStackTrace();
@@ -145,12 +144,12 @@ public class Controller {
                 InputStream inStream = new FileInputStream(file);
                 Properties prop = new Properties();
                 prop.load(inStream);
-                String hostConfText = prop.getProperty("host");
-                String dbConfText = prop.getProperty("db");
-                String userConfText = prop.getProperty("user");
-                String passwordConfText = prop.getProperty("password");
-                String sslConfText = prop.getProperty("ssl");
-                String exportFilePathConfText = prop.getProperty("exportFilePath");
+                String hostConfText = prop.getProperty(CommonConstant.HOST);
+                String dbConfText = prop.getProperty(CommonConstant.DB);
+                String userConfText = prop.getProperty(CommonConstant.USER);
+                String passwordConfText = prop.getProperty(CommonConstant.PASSWORD);
+                String sslConfText = prop.getProperty(CommonConstant.SSL);
+                String exportFilePathConfText = prop.getProperty(CommonConstant.EXPORT_FILE_PATH);
                 this.exportFilePath.setText(exportFilePathConfText);
                 host.setText(hostConfText);
                 db.setText(dbConfText);
@@ -175,12 +174,10 @@ public class Controller {
     }
 
     private File getConfigFile() {
-        String appdataPath = System.getenv("APPDATA");
-        String dir = "MySqlDocFx";
-        String filePath = appdataPath + System.getProperty("file.separator") + dir;
+        String appdataPath = System.getenv(CommonConstant.APPDATA);
+        String filePath = appdataPath + System.getProperty("file.separator") + CommonConstant.PROJECT_DIR_NAME;
         FileSave.mkdirIfNotExist(filePath);
-        String fileName = "config.properties";
-        return FileUtils.getFile(filePath + System.getProperty("file.separator") + fileName);
+        return FileUtils.getFile(filePath + System.getProperty("file.separator") + CommonConstant.CONFIG_PROPERTIES_FILE_NAME);
     }
 
     public void selectOutPath(MouseEvent mouseEvent) {
