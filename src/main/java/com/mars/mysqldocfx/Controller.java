@@ -9,6 +9,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.DirectoryChooser;
@@ -39,6 +41,8 @@ public class Controller {
     private StackPane root;
     @FXML
     private Label exportFilePath;
+    @FXML
+    private Label exportFilePathLabel;
 
     public static final String CONTENT_PANE = "ContentPane";
 
@@ -159,6 +163,12 @@ public class Controller {
                 e.printStackTrace();
             }
         }
+        ClassLoader classLoader = getClass().getClassLoader();
+        ImageView image = new ImageView(new Image(classLoader.getResourceAsStream("images/wenjianjia_1.png")));
+        image.setPreserveRatio(true);
+        image.setFitHeight(28);
+        image.setFitHeight(28);
+        exportFilePathLabel.setGraphic(image);
     }
 
     private File getConfigFile() {

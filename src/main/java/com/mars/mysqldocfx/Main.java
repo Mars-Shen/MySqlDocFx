@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -13,8 +14,9 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-
-        URL resource = getClass().getClassLoader().getResource("layout.fxml");
+        ClassLoader classLoader = getClass().getClassLoader();
+        primaryStage.getIcons().add(new Image(classLoader.getResourceAsStream("images/logo.png")));
+        URL resource = classLoader.getResource("layout.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(resource);
         fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
