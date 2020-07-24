@@ -11,12 +11,15 @@ A graphical tool that automatically generates Markdown or Html documents from th
 ```
 java -jar mysqldocfx-1.0-SNAPSHOT-jar-with-dependencies.jar
 ```
+或直接运行exe文件
 
 
 - 自行编译打包 
 ```
- mvn package
+ mvn clean package
 ```
+在target文件夹中找到相应的jar包或者exe文件
+
 填写配置后点击生成, 即可自动生成数据库文档
 
 ##### 界面预览
